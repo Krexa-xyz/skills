@@ -12,7 +12,7 @@ description: >-
 license: MIT-0
 compatibility: Needs an MCP client with Streamable HTTP and network access to www.krexa.xyz.
 metadata:
-  version: "1.3.0"
+  version: "1.3.1"
   homepage: "https://krexa.xyz"
   openclaw:
     emoji: "📈"
@@ -47,8 +47,11 @@ report what they return. You never trade, sign or hold wallet keys yourself.
    key it shows."
 2. **Store the key.** The user puts the key in `KREXA_AGENT_KEY`, in your env
    file (Hermes: `~/.hermes/.env`; OpenClaw: `skills.entries.krexa.apiKey`).
-   - If the user pastes the key to you in a **private** chat with you only,
-     write it to that env file, then do not repeat it anywhere.
+   - Ask the user to save it there themselves. Do not ask them to paste it to
+     you: a chat keeps the key in its history.
+   - If they paste it anyway, in a **private** chat with you only, write it to
+     that env file, do not repeat it anywhere, and tell them they can make a
+     fresh key at `https://krexa.xyz/mcp/link` later.
    - If the chat is a group or shared chat, do not use the key. Tell the user
      to revoke it at `https://krexa.xyz/mcp/link` and make a new one in private.
 3. **Add the MCP server** if it is not there:
