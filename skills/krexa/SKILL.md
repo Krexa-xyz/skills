@@ -10,9 +10,9 @@ description: >-
   or withdraw money; every live deploy needs the user to approve it in the
   Krexa app.
 license: MIT-0
-compatibility: Needs an MCP client with Streamable HTTP and network access to api.krexa.xyz.
+compatibility: Needs an MCP client with Streamable HTTP and network access to www.krexa.xyz.
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
   homepage: "https://krexa.xyz"
   openclaw:
     emoji: "📈"
@@ -52,7 +52,7 @@ report what they return. You never trade, sign or hold wallet keys yourself.
    - If the chat is a group or shared chat, do not use the key. Tell the user
      to revoke it at `https://krexa.xyz/mcp/link` and make a new one in private.
 3. **Add the MCP server** if it is not there:
-   URL `https://api.krexa.xyz/api/v1/mcp`, transport Streamable HTTP, header
+   URL `https://www.krexa.xyz/mcp`, transport Streamable HTTP, header
    `Authorization: Bearer ${KREXA_AGENT_KEY}`. Exact config:
    [references/setup.md](references/setup.md).
 4. **Reload** the MCP client (Hermes: `/reload-mcp`), then call

@@ -34,9 +34,12 @@ The skill uses the Krexa MCP server. Your agent needs a key once.
 
    | | |
    |---|---|
-   | URL | `https://api.krexa.xyz/api/v1/mcp` |
+   | URL | `https://www.krexa.xyz/mcp` |
    | Transport | Streamable HTTP |
    | Header | `Authorization: Bearer ${KREXA_AGENT_KEY}` |
+
+   Use `www`: bare `krexa.xyz` redirects, and most clients drop the key on a
+   redirect. The old URL `https://api.krexa.xyz/api/v1/mcp` still works.
 
    Exact config for each agent: [skills/krexa/references/setup.md](skills/krexa/references/setup.md).
 5. Reload the agent (Hermes: `/reload-mcp`) and ask: *"Who am I on Krexa?"*
