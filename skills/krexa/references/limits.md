@@ -20,7 +20,8 @@ Krexa checks these in code on its servers. A prompt cannot change them.
 - Leverage is always 1 for Solana spot.
 - Krexa has a ceiling on max per trade and leverage for MCP deploys. A request
   above it returns `limit_exceeded` with the ceiling.
-- The strategy code is frozen at deploy. The agent cannot rewrite its own rule.
+- The strategy is fixed when the user approves the deploy. Only the owner can
+  change it, in the Krexa app.
 - Only markets Krexa lists can be traded. Others are refused.
 
 ## What the MCP key cannot do
