@@ -17,6 +17,15 @@ npx skills add krexa-xyz/skills --skill krexa -g
   current project only.
 - Add `-a hermes` or `-a openclaw` to install for one agent only.
 
+### Claude Code
+
+```text
+/plugin marketplace add Krexa-xyz/skills
+/plugin install krexa@krexa
+```
+
+Claude Code asks for your Krexa key when you enable the plugin, stores it in secure storage, and connects the MCP server for you.
+
 Or tell your agent: *"Install the Krexa skill from github.com/Krexa-xyz/skills
 and set it up."*
 
