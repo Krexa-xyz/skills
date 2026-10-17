@@ -1,0 +1,15 @@
+{
+  "name": "krexa",
+  "description": "Krexa's official plugin: research, backtest, paper-trade and run Krexa trading agents from your AI agent.",
+  "owner": {
+    "name": "Krexa",
+    "url": "https://www.krexa.xyz"
+  },
+  "plugins": [
+    {
+      "name": "krexa",
+      "source": "./",
+      "description": "Turn a trading idea, post or video into a backtested, paper-traded strategy and request a live trading agent that you approve and sign."
+    }
+  ]
+}
