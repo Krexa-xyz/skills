@@ -1,7 +1,7 @@
 {
   "name": "krexa",
   "displayName": "Krexa",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "Turn a trading idea, post or video into fixed rules, backtest and paper-trade them, and request a live trading agent that you approve and sign. Connects to Krexa's hosted MCP server; the key cannot move or withdraw funds.",
   "author": {
     "name": "Krexa",
