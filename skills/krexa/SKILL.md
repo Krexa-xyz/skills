@@ -14,7 +14,7 @@ description: >-
 license: MIT-0
 compatibility: Needs an MCP client with Streamable HTTP and network access to www.krexa.xyz.
 metadata:
-  version: "1.3.2"
+  version: "1.3.3"
   homepage: "https://krexa.xyz"
   openclaw:
     emoji: "📈"
