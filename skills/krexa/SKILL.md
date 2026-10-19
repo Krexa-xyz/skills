@@ -92,6 +92,9 @@ a prefix, for example Hermes shows `mcp_krexa_krexa_whoami`.
    stop it with `krexa_paper_stop`.
 6. **Deploy.** Only when the user asks to go live. Ask for the limits if not
    given: max per trade (USDC), daily budget (USDC), daily loss cap (USD).
+   For a first live run, suggest `approvalMode: "approve"` so every order
+   waits for the user. Perps venues also take `maxLeverage` (default 2, at
+   most 3).
    Call `krexa_deploy_request`. Send the `approvalUrl` exactly as returned and
    say: "Approve it in Krexa with your wallet. It does not trade until you
    approve and fund it."
