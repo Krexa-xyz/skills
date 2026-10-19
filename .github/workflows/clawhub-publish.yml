@@ -1,0 +1,36 @@
+name: Publish skill to ClawHub
+
+# Publishes skills/krexa to https://clawhub.ai/krexa/krexa whenever the skill
+# changes on main. ClawHub skips unchanged content, so runs with no skill
+# changes publish nothing.
+#
+# Setup (once): create an API token on clawhub.ai for an account that can
+# publish to the @krexa org, then add it as the repository secret
+# CLAWHUB_TOKEN (Settings > Secrets and variables > Actions).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "skills/**"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Preview only, publish nothing
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    # Pinned to a commit of openclaw/clawhub's reusable workflow.
+    uses: openclaw/clawhub/.github/workflows/skill-publish.yml@911211fc6cc6384a2cdb3ca0eff6f9031afd25f0
+    with:
+      skill_path: skills/krexa
+      owner: krexa
+      dry_run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || false }}
+    secrets:
+      clawhub_token: ${{ secrets.CLAWHUB_TOKEN }}
