@@ -68,19 +68,23 @@ step 1. Your client may prefix tool names (Hermes: `mcp_krexa_krexa_whoami`).
 
 1. **Decode** the idea with `krexa_decode_strategy` and show the rule. If it
    says `refused` or `deployable: false`, tell the user why.
-2. **Deep test** with `krexa_deep_backtest_start` on the venue (and leverage)
-   the user wants, then `krexa_job_get` until `completed` (about 6 minutes).
-   Krexa requires it, or a paper run, before a deploy on that venue.
+2. **Deep test (recommended, not required)**: offer
+   `krexa_deep_backtest_start` on the venue the user wants, then
+   `krexa_job_get` until `completed` (about 6 minutes). If the user wants to
+   go live now, skip it.
 3. **Deploy** with `krexa_deploy_request` and the user's limits: max per
    trade and daily budget (USDC), daily loss cap (USD); perps also take
-   `maxLeverage` (default 2, at most 3). Suggest `approvalMode: "approve"` for
-   a first live run. Send the `approvalUrl` exactly as returned.
+   `maxLeverage` (default 2; the user picks, up to the server ceiling in the
+   tool description). Suggest `approvalMode: "approve"` for a first live run.
+   Send the `approvalUrl` exactly as returned. If the result says
+   `deepTested: false`, tell the user it was not deep-tested.
 4. **Fund**: after the user approves, `krexa_deploy_status` says `live` and
    gives a `nextStep`. Pass it on: the agent cannot trade until the user funds
    it (USDC plus 0.01 SOL for fees) with the Fund button on its page.
 
 Optional: `krexa_paper_start` runs the rule on live prices with pretend money
-(`krexa_paper_status`, `krexa_paper_stop`). Say "paper" every time.
+(`krexa_paper_status`, `krexa_paper_stop`). It needs a finished deep test.
+Say "paper" every time.
 
 Check in: `krexa_list_agents`, `krexa_agent_status` (report trades, P&L and
 every `blocked` item), `krexa_leaderboard`. Stop: `krexa_agent_pause`.
