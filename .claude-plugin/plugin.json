@@ -10,7 +10,7 @@
   "homepage": "https://www.krexa.xyz",
   "repository": "https://github.com/Krexa-xyz/skills",
   "license": "MIT-0",
-  "keywords": ["trading", "crypto", "backtesting", "paper-trading", "mcp", "solana", "hyperliquid", "polymarket", "jupiter"],
+  "keywords": ["trading", "crypto", "backtesting", "paper-trading", "mcp", "solana", "hyperliquid", "polymarket", "jupiter", "binance", "bybit", "okx", "kraken", "coinbase", "xstocks"],
   "icon": "./assets/logo.png",
   "privacyPolicyUrl": "https://www.krexa.xyz/privacy",
   "termsOfServiceUrl": "https://www.krexa.xyz/terms",

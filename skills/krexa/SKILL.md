@@ -3,8 +3,10 @@ name: krexa
 description: >-
   Use this skill when the user wants to research a trading idea, or turn an
   idea, post, reel or video into a tested strategy and deploy it as a live
-  trading agent on Krexa. Covers Solana spot, perps (Hyperliquid, Jupiter
-  Perps, Polymarket Perps) and prediction markets. Krexa runs the research,
+  trading agent on Krexa. Covers Solana spot and tokenized stocks (xStocks),
+  perps (Hyperliquid, Jupiter Perps, Polymarket Perps), Polymarket prediction
+  markets, and perps in the user's own Binance, Bybit, OKX, Kraken or Coinbase
+  account. Krexa runs the research,
   backtests and agents on its own servers and enforces trading limits in code.
   The key can ask for a deploy but cannot move money; the user approves every
   live deploy in the Krexa app.
