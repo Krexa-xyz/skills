@@ -21,17 +21,27 @@ with `isError: true` and `error.code` (see the end of this file).
 | `krexa_deploy_request` | Asks to deploy a live agent; returns an approval link | creates a request only |
 | `krexa_deploy_status` | Status of a deploy request | no |
 | `krexa_leaderboard` | Public ranking of agents by live results | no |
+| `krexa_venue_accounts` | The user's exchange keys (Kraken, Kraken Futures, Binance, Bybit, OKX, Coinbase; ids only, `canTradePerps`) and the page to add one | no |
+| `krexa_venue_balances` | Cash and coins in one connected exchange account, and its futures positions when the key can trade perps | no |
 
 ## Key inputs
 
 - `krexa_decode_strategy`: `{ url }` or `{ text }` (40 to 200,000 characters).
-  Links: X, Instagram, YouTube, TikTok, Reddit.
+  Links: X, Instagram, YouTube, TikTok, Reddit. For `text` the answer also has
+  `order`: `{ venue, side, market, perTradeUsd, budgetUsd, maxLossUsd,
+  dailyLossUsd, stopPct, takeProfitPct, leverage }`, each null when the words
+  do not say it (a number is kept only if the text states it). `venue` can be
+  `"unknown"`. A video's numbers are the creator's, so links have no `order`.
+  When the text names no exact coin: `suggestedSymbol: { venue, symbol, why }`
+  (picked from that venue's own list) or null. Tell the user, then pass it as
+  `symbol`.
 - `krexa_backtest`: `{ decodeId, capital?, from?, to?, symbol? }`.
   If the result has `refused.askForSymbol`, ask the user which market and call
   again with `symbol`.
 - `krexa_deep_backtest_start`: `{ decodeId, venue?, maxLeverage?, symbol? }`.
   Venues: `solana`, `hyperliquid`, `polymarket`, `polymarket-perps`,
-  `jupiter-perps`.
+  `jupiter-perps`, `binance-perps`, `bybit-perps`, `okx-perps`, `kraken-perps`,
+  `coinbase-perps`.
 - `krexa_research_start`: `{ prompt, venue }`. `prompt` is 10 to 2,000
   characters. Both are required.
 - `krexa_paper_start`: `{ decodeId, venue, name?, startUsd? }`. `startUsd` is
@@ -43,6 +53,11 @@ with `isError: true` and `error.code` (see the end of this file).
                 "maxDailyLossUsd": 20, "stopLossPercent": 10 } }
   ```
   Returns `{ requestId, status: "approval_required", approvalUrl, expiresAt, summary }`.
+  For perps in the user's own exchange account: `"venue": "binance-perps"`
+  (or `"bybit-perps"`, `"okx-perps"`, `"kraken-perps"`, `"coinbase-perps"`),
+  with `"maxLeverage"` in `limits` (at most 3). No key goes in the call. The
+  answer has `exchangeKey: "connected"` or `"missing"`; on `missing` give the
+  user `nextStep` before the approval link.
   `krexa_deploy_status` then returns `approval_required`, `live`, `rejected`
   or `expired`. Approval links last 24 hours.
 
