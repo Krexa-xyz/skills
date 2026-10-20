@@ -1,7 +1,7 @@
 {
   "name": "krexa",
   "displayName": "Krexa",
-  "version": "1.3.4",
+  "version": "1.5.0",
   "description": "Turn a trading idea, post or video into fixed rules, backtest and paper-trade them, and request a live trading agent that you approve and sign. Connects to Krexa's hosted MCP server; the key cannot move or withdraw funds.",
   "author": {
     "name": "Krexa",
@@ -10,7 +10,7 @@
   "homepage": "https://www.krexa.xyz",
   "repository": "https://github.com/Krexa-xyz/skills",
   "license": "MIT-0",
-  "keywords": ["trading", "crypto", "backtesting", "paper-trading", "mcp", "solana", "hyperliquid", "polymarket", "jupiter"],
+  "keywords": ["trading", "crypto", "backtesting", "paper-trading", "mcp", "solana", "hyperliquid", "polymarket", "jupiter", "binance", "bybit", "okx", "kraken", "coinbase", "xstocks"],
   "icon": "./assets/logo.png",
   "privacyPolicyUrl": "https://www.krexa.xyz/privacy",
   "termsOfServiceUrl": "https://www.krexa.xyz/terms",

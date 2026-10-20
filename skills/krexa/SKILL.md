@@ -3,15 +3,17 @@ name: krexa
 description: >-
   Use this skill when the user wants to research a trading idea, or turn an
   idea, post, reel or video into a tested strategy and deploy it as a live
-  trading agent on Krexa. Covers Solana spot, perps (Hyperliquid, Jupiter
-  Perps, Polymarket Perps) and prediction markets. Krexa runs the research,
+  trading agent on Krexa. Covers Solana spot and tokenized stocks (xStocks),
+  perps (Hyperliquid, Jupiter Perps, Polymarket Perps), Polymarket prediction
+  markets, and perps in the user's own Binance, Bybit, OKX, Kraken or Coinbase
+  account. Krexa runs the research,
   backtests and agents on its own servers and enforces trading limits in code.
   The key can ask for a deploy but cannot move money; the user approves every
   live deploy in the Krexa app.
 license: MIT-0
 compatibility: Needs an MCP client with Streamable HTTP and network access to www.krexa.xyz.
 metadata:
-  version: "1.3.4"
+  version: "1.5.0"
   homepage: "https://krexa.xyz"
   openclaw:
     emoji: "📈"
@@ -67,7 +69,11 @@ step 1. Your client may prefix tool names (Hermes: `mcp_krexa_krexa_whoami`).
 ## Deploy
 
 1. **Decode** the idea with `krexa_decode_strategy` and show the rule. If it
-   says `refused` or `deployable: false`, tell the user why.
+   says `refused` or `deployable: false`, tell the user why. For typed text
+   it also returns `order` (venue, side, money, stop, leverage the words
+   state; null = not said): use these as the defaults below and confirm them.
+   If the idea names no exact coin, `suggestedSymbol` is a pick from that
+   venue's own list with a `why`: tell the user and pass it as `symbol`.
 2. **Deep test (recommended, not required)**: offer
    `krexa_deep_backtest_start` on the venue the user wants, then
    `krexa_job_get` until `completed` (about 6 minutes). If the user wants to
@@ -80,7 +86,9 @@ step 1. Your client may prefix tool names (Hermes: `mcp_krexa_krexa_whoami`).
    `deepTested: false`, tell the user it was not deep-tested.
 4. **Fund**: after the user approves, `krexa_deploy_status` says `live` and
    gives a `nextStep`. Pass it on: the agent cannot trade until the user funds
-   it (USDC plus 0.01 SOL for fees) with the Fund button on its page.
+   it (USDC plus 0.01 SOL for fees) with the Fund button on its page. Least
+   USDC: Solana any amount ($5 is fine); Hyperliquid and Jupiter Perps $15;
+   Polymarket $2. Exchange perps trade the user's own account, so no fund step.
 
 Optional: `krexa_paper_start` runs the rule on live prices with pretend money
 (`krexa_paper_status`, `krexa_paper_stop`). It needs a finished deep test.
@@ -117,6 +125,29 @@ every `blocked` item), `krexa_leaderboard`. Stop: `krexa_agent_pause`.
 - The key cannot withdraw, transfer, fund, resume or raise a limit. Live
   agents start only after the user signs in the Krexa app, and Krexa's
   servers enforce a ceiling on every deploy.
+
+## Tokenized stocks (xStocks) and Polymarket
+
+- Stocks trade on Solana as xStocks: NVDAx, AAPLx, TSLAx, SPYx, GLDx and more.
+  "Buy NVDA" or "buy Nvidia" means NVDAx. Use `venue: "solana"`. A stock
+  agent decides once a day, and paper runs do not take stocks yet.
+- Polymarket (yes/no markets): deploy with `venue: "polymarket"`. No
+  leverage; it buys shares with its own wallet. It runs only code that its
+  own Polymarket deep test passed, so deep-test on `polymarket` first.
+
+## Exchanges: Kraken, Binance, Bybit, OKX, Coinbase (the user's own account)
+
+- "Connect my Kraken" → `krexa_venue_accounts` with `venue`. If no key is
+  listed, give the user `connectUrl`. **Never ask for an exchange key in
+  chat**, and never accept one pasted there: tell the user to remove that key
+  on the exchange and use the page.
+- "What do I hold on Binance?" → `krexa_venue_balances` with `credentialId`.
+- To run an agent there over MCP: perps only. Deep-test the decode on that
+  exchange (`krexa_deep_backtest_start` with `venue` `"binance-perps"`,
+  `"bybit-perps"`, `"okx-perps"`, `"kraken-perps"` or `"coinbase-perps"`), then
+  `krexa_deploy_request` with that `venue` and `limits.maxLeverage`. Do not pass
+  a key. If the answer says `exchangeKey: "missing"`, give the user `nextStep`
+  first. Kraken perps need a separate Kraken Futures key.
 
 ## Limits worth knowing
 
